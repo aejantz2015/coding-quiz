@@ -1,0 +1,17 @@
+body {
+    background-color: rgb(206, 127, 168);
+}
+
+.scores, .timer {
+    margin-left: 85%;
+    padding: auto;
+    color: white;
+}
+
+.main-screen, .end-screen {
+    color: white;
+}
+
+.hide {
+    display: none;
+}
