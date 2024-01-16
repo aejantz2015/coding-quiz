@@ -8,6 +8,12 @@ var index = 0
 var option = document.querySelector("#options")
 var message = document.querySelector("#message")
 var timerId 
+var end = document.querySelector("#end-screen")
+var enterInitials = document.querySelector("#initials")
+var scores = document.querySelector("#score")
+var endScore = 0
+var submit = document.querySelector("#submit")
+var save = document.querySelector("#save")
 
 var questions = [
     {
@@ -67,10 +73,11 @@ function startTimer() {
     timerId = setInterval(function () {
     timeRemaining--;
     time.textContent = timeRemaining;
-    if (timeRemaining === 0) {
+    if (timeRemaining === 0 || index === questions.length) {
         clearInterval(timer)
+        endQuiz()
     }
-    return timerCount;
+    return time;
     }, 1000);
 }
 function startQuiz () {
@@ -107,6 +114,7 @@ function nextQuestion (event) {
     }
     else {
         clearInterval(timerId)
+        endQuiz()
     }
 } 
 function checkAnswer (userChoice) {
@@ -119,8 +127,60 @@ function checkAnswer (userChoice) {
     }
 }
 
+function saveHighScore() {
+    var initials = enterInitials.value
+    var newScore = {
+        score: timeRemaining,
+        initials: initials,
+    }
+    var savedScores = JSON.parse(localStorage.getItem("scores")) || []
+    savedScores.push(newScore);
+    localStorage.setItem("scores", JSON.stringify(savedScores));
+    getHighScores()
+
+}
+function endQuiz () {
+    questionSection.classList.add("hide")
+    end.classList.remove("hide")
+    scores.textContent = timeRemaining
+    endScore = timeRemaining
+    if (timeRemaining <= 0) {
+        scores = timerId
+        endScore.textContent = timeRemaining
+    }
+
+}
+
+function getHighScores() {
+    document.getElementById("high-scores").classList.remove("hide")
+    var highScores = JSON.parse(localStorage.getItem("scores"))
+    var highestScore = 0
+    for (var score of highScores) {
+        if (score.score > highestScore) {
+            highestScore = score.score
+        }; 
+    }
+    document.getElementById("highest-score").textContent = highestScore;
+    var highestScoreIndex = highScores.indexOf(highScores.find(
+        function (score){
+            return score.score === highestScore
+        }))
+        highScores.splice(highestScoreIndex, 1)
+    var ul = document.createElement("ul")
+    highScores.forEach(function(highScore) {
+        var li = document.createElement("li")
+        li.innerHTML = `<span>Initials: ${highScore.initials} Score: ${highScore.score}`
+        ul.appendChild(li)
+    })
+    document.getElementById("high-scores").appendChild(ul)
+}
+document.getElementById("play-again").addEventListener("click", function(){
+    window.location.reload()
+})
 option.addEventListener("click", nextQuestion)
 start.addEventListener("click", startQuiz)
+save.addEventListener("click", saveHighScore)
+
 
 
 

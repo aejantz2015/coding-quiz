@@ -32,15 +32,21 @@
             <div id="end-screen" class="hide">
                 <h2>Quiz Complete!</h2>
                 <p>Here is your final score: <span id="score"></span></p>
-                <p>Enter your initials: <input type="text" id="initials" max="2" />
-                    <button id="submit">Submit</button>
-                </p>
+                <p>Enter your initials: </p>
+                <input type="text" id="initials" max="2" />
+                    <button id="save">Save Score</button>
+            </div>
+            <div id ="high-scores" class="hide">
+                <span style="float:left">
+                <button id="play-again">Play again</button>
+                </span>
+                <h2>High Scores</h2>
+                <p>Here is the highest score: <span id="highest-score"></span></p>
             </div>
         </div>
 
 
         <script src="./assets/questions.js"></script>
-        <script src="./assets/highscores.js"></script>
     </body>
 
 
