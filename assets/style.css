@@ -1,5 +1,10 @@
 body {
     background-color: rgb(206, 127, 168);
+    margin-left: 5%;
+    color: white;
+}
+* {
+   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
 }
 
 .scores, .timer {
@@ -14,4 +19,8 @@ body {
 
 .hide {
     display: none;
+}
+
+button {
+    color: rgb(206, 127, 168);
 }

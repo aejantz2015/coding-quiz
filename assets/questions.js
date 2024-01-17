@@ -153,6 +153,7 @@ function endQuiz () {
 
 function getHighScores() {
     document.getElementById("high-scores").classList.remove("hide")
+    end.classList.add("hide")
     var highScores = JSON.parse(localStorage.getItem("scores"))
     var highestScore = 0
     for (var score of highScores) {
